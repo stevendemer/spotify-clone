@@ -21,8 +21,8 @@ const Sidebar = () => {
   const userId = useRecoilValue(userStateId);
   const [playlistId, setPlaylistId] = useRecoilState(playlistIdState);
 
-  console.log("Session", session);
-  console.log("Playlist id", playlistId);
+  // console.log("Session", session);
+  // console.log("Playlist id", playlistId);
 
   useEffect(() => {
     if (spotifyApi.getAccessToken()) {
