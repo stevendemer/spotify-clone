@@ -16,6 +16,7 @@ export default function Home() {
 
   console.log(`The user id is ${userId}`);
 
+  // the user is not logged in
   useEffect(() => {
     if (!session && status != "authenticated") {
       router.push("/login");

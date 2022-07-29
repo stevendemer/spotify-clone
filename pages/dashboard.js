@@ -19,7 +19,7 @@ export default function Dashboard() {
         setUserId(data.body.id);
       })
       .catch((err) => console.log(err));
-  }, [spotifyApi, userId]);
+  }, [spotifyApi, session]);
 
   return (
     <div className="flex bg-black h-screen">
