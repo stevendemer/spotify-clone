@@ -6,7 +6,6 @@ import {
   HeartIcon,
   BookmarkIcon,
 } from "@heroicons/react/outline";
-import { BiPlay } from "react-icons/bi";
 import { useSession } from "next-auth/react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useState, useEffect } from "react";
@@ -53,30 +52,30 @@ const Sidebar = () => {
         </div>
         {/* Links */}
         <div className="space-y-4 ml-2 text-sm md:text-xl">
-          <button className="flex items-center hover:text-white space-x-2">
+          <button className="flex items-center hover:text-white focus:text-white space-x-2">
             <HomeIcon className="h-[24px] w-[24px]" />
             <p>Home</p>
           </button>
-          <button className="flex items-center hover:text-white space-x-2">
+          <button className="flex items-center hover:text-white focus:text-white space-x-2">
             <SearchIcon className="h-[24px] w-[24px]" />
             <p>Search</p>
           </button>
-          <button className="flex items-center hover:text-white space-x-2">
+          <button className="flex items-center hover:text-white focus:text-white space-x-2">
             <LibraryIcon className="h-[24px] w-[24px]" />
             <p>Library</p>
           </button>
         </div>
         {/* Second links */}
         <div className="pt-8 space-y-4 ml-2 text-sm font-semibold ">
-          <button className="flex items-center space-x-2 hover:text-white ">
+          <button className="flex items-center space-x-2 hover:text-white focus:text-white ">
             <PlusCircleIcon className="h-[24px] w-[24px]" />
             <p>Create a playlist</p>
           </button>
-          <button className="flex items-center space-x-2 hover:text-white ">
+          <button className="flex items-center space-x-2 hover:text-white focus:text-white">
             <HeartIcon className="h-[24px] w-[24px]" />
             <p>Liked songs</p>
           </button>
-          <button className="flex items-center space-x-2 hover:text-white ">
+          <button className="flex items-center space-x-2 hover:text-white focus:text-white">
             <BookmarkIcon className="h-[24px] w-[24px]" />
             <p>Your episodes</p>
           </button>
