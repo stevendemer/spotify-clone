@@ -19,10 +19,10 @@ const bgColors = [
 
 export default function Menu() {
   const { data: session } = useSession();
-  const spotifyApi = useSpotify();
   const [colorMode, setColorMode] = useState("");
   const playlistId = useRecoilValue(playlistIdState); // read only
   const [playlist, setPlaylist] = useRecoilState(playlistState);
+  const spotifyApi = useSpotify();
 
   useEffect(() => {
     setColorMode(shuffle(bgColors).pop());
@@ -44,7 +44,7 @@ export default function Menu() {
   }, [spotifyApi, playlistId]);
 
   return (
-    <div className="h-screen flex-grow overflow-y-scroll scrollbar scrollbar-hide text-white text-3xl w-full">
+    <div className="h-screen relative w-full flex-grow overflow-y-scroll scrollbar scrollbar-hide text-white text-3xl mb-10 ">
       <header className="absolute top-5 right-8">
         <div
           onClick={signOut}

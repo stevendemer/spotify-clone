@@ -6,28 +6,33 @@ import {
   currentTrackState,
   isPlayingState,
 } from "../atoms/song-atom";
-import useSpotify from "../hooks/useSpotify";
 import millisToMinutesAndSeconds from "../lib/time";
 import { BiPlay } from "react-icons/bi";
+import SpotifyApi from "../lib/spotify";
+import useSpotify from "../hooks/useSpotify";
 
 /*
     TODO: Get the timestamp from the API when the song 
     TODO: was added to the playlist
 */
 const Song = ({ track, order }) => {
-  const spotifyApi = useSpotify();
   const [currentTrackid, setCurrentTrackid] =
     useRecoilState(currentTrackIdState);
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState);
   const [isHovered, setIsHovered] = useState(false);
+  const spotifyApi = useSpotify();
 
   // The api returns permision error
-  const playSong = () => {
+  const playSong = async () => {
+    console.log(SpotifyApi.getAccessToken());
     setCurrentTrackid(track.id);
     setIsPlaying(true);
-    spotifyApi.play({
-      uris: [track.uri],
-    });
+    spotifyApi
+      .play({
+        uris: [track.uri],
+      })
+      .then((d) => console.log(d))
+      .catch((err) => console.log(err));
   };
 
   //   console.log("Current track is called ", track.name);

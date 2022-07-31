@@ -10,14 +10,13 @@ import { useSession } from "next-auth/react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useState, useEffect } from "react";
 import { userStateId } from "../atoms/user-atom";
-import useSpotify from "../hooks/useSpotify";
 import { playlistIdState } from "../atoms/playlist-atom";
+import SpotifyApi from "../lib/spotify";
 
 const Sidebar = () => {
   const { data: session, status } = useSession();
 
   const [playlists, setPlaylists] = useState([]);
-  const spotifyApi = useSpotify();
   const userId = useRecoilValue(userStateId);
   const [playlistId, setPlaylistId] = useRecoilState(playlistIdState);
 
@@ -25,20 +24,19 @@ const Sidebar = () => {
   // console.log("Playlist id", playlistId);
 
   useEffect(() => {
-    if (spotifyApi.getAccessToken()) {
+    if (SpotifyApi.getAccessToken()) {
       // user is still registered
-      spotifyApi
-        .getUserPlaylists()
+      SpotifyApi.getUserPlaylists()
         .then((data) => {
           setPlaylists(data.body.items);
         })
         .catch((err) => console.log("Error getting the playlists ", err));
     }
-  }, [session, spotifyApi]);
+  }, [session, SpotifyApi]);
 
   return (
-    <div className="md:inline-flex text-xs bg-black overflow-y-hidden flex-grow h-screen w-[232px] md:text-[0.875rem] lg:text-lg text-gray-500">
-      <div className="flex flex-col space-y-4">
+    <div className="text-xs bg-black overflow-y-hidden flex-grow h-screen w-[232px] md:text-[0.875rem] lg:text-lg text-gray-500">
+      <div className=" space-y-4">
         {/* Logo  */}
         <div className="flex items-center pb-3 justify-start cursor-pointer">
           <img
@@ -51,7 +49,7 @@ const Sidebar = () => {
           </div>
         </div>
         {/* Links */}
-        <div className="space-y-4 ml-2 text-sm md:text-xl">
+        <div className="space-y-4 ml-2 text-sm md:text-xl focus:outline-none focus:ring-none">
           <button className="flex items-center hover:text-white focus:text-white space-x-2">
             <HomeIcon className="h-[24px] w-[24px]" />
             <p>Home</p>

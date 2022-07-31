@@ -22,7 +22,8 @@ export default function Dashboard() {
   }, [spotifyApi, session]);
 
   return (
-    <div className="bg-black h-screen">
+    <div className="flex h-screen bg-black">
+      <Sidebar />
       <Menu />
     </div>
   );

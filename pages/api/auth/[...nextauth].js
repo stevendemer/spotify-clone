@@ -1,15 +1,13 @@
 import NextAuth from "next-auth";
 import SpotifyProvider from "next-auth/providers/spotify";
-import { LOGIN_URL } from "../../../lib/spotify";
-import useSpotify from "../../../hooks/useSpotify";
+import SpotifyApi, { LOGIN_URL } from "../../../lib/spotify";
 
-async function useRefreshToken(token) {
-  const spotifyApi = useSpotify();
+async function refreshAccessToken(token) {
   try {
-    spotifyApi.setAccessToken(token.accessToken);
-    spotifyApi.setRefreshToken(token.refreshToken);
+    SpotifyApi.setAccessToken(token.accessToken);
+    SpotifyApi.setRefreshToken(token.refreshToken);
 
-    const { body: refreshedToken } = await spotifyApi.refreshAccessToken();
+    const { body: refreshedToken } = await SpotifyApi.refreshAccessToken();
 
     console.log("Refreshed token is " + refreshedToken);
 
@@ -17,12 +15,10 @@ async function useRefreshToken(token) {
       ...token,
       accessToken: refreshedToken.access_token,
       accessTokenExpires: Date.now() + refreshedToken.expires_in * 1000,
-      refreshToken: refreshedToken
-        ? refreshedToken.refresh_token
-        : token.refreshToken,
+      refreshToken: refreshedToken.refresh_token ?? token.refreshToken,
     };
   } catch (error) {
-    console.log(error);
+    console.log("Error in Next Auth", error);
     return {
       ...token,
       error: "RefreshAccessTokenError",
@@ -37,7 +33,7 @@ export default NextAuth({
     SpotifyProvider({
       clientId: process.env.NEXT_PUBLIC_CLIENT_ID,
       clientSecret: process.env.NEXT_PUBLIC_CLIENT_SECRET,
-      authorization: LOGIN_URL,
+      authorization: { LOGIN_URL },
     }),
   ],
   pages: {
