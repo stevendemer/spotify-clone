@@ -1,4 +1,5 @@
 import { ClockIcon } from "@heroicons/react/solid";
+import { useState } from "react";
 import { useRecoilState } from "recoil";
 import {
   currentTrackIdState,
@@ -7,6 +8,7 @@ import {
 } from "../atoms/song-atom";
 import useSpotify from "../hooks/useSpotify";
 import millisToMinutesAndSeconds from "../lib/time";
+import { BiPlay } from "react-icons/bi";
 
 /*
     TODO: Get the timestamp from the API when the song 
@@ -17,6 +19,7 @@ const Song = ({ track, order }) => {
   const [currentTrackid, setCurrentTrackid] =
     useRecoilState(currentTrackIdState);
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState);
+  const [isHovered, setIsHovered] = useState(false);
 
   // The api returns permision error
   const playSong = () => {
@@ -34,9 +37,15 @@ const Song = ({ track, order }) => {
       <div
         onClick={playSong}
         className="grid grid-cols-3 text-gray-400 py-2 px-5 hover:bg-gray-900 cursor-pointer rounded-lg"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       >
         <div className="flex justify-self-start items-center space-x-4 py-4">
-          <p className="text-base">{order + 1}</p>
+          {isHovered ? (
+            <BiPlay className="w-6 h-6 text-white" />
+          ) : (
+            <p className="text-base">{order + 1}</p>
+          )}
           <img
             className="h-10 w-12 mr-[16px]"
             src={track.album.images[0]?.url}
