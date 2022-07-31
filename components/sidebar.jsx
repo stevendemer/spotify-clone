@@ -6,6 +6,7 @@ import {
   HeartIcon,
   BookmarkIcon,
 } from "@heroicons/react/outline";
+import { BiPlay } from "react-icons/bi";
 import { useSession } from "next-auth/react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useState, useEffect } from "react";
