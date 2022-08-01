@@ -23,7 +23,7 @@ const Song = ({ track, order }) => {
   const spotifyApi = useSpotify();
 
   // The api returns permision error
-  const playSong = () => {
+  const playSong = async () => {
     // console.log(SpotifyApi.getAccessToken());
     setCurrentTrackid(track.id);
     setIsPlaying(true);

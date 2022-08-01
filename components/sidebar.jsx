@@ -35,8 +35,8 @@ const Sidebar = () => {
   }, [session, SpotifyApi]);
 
   return (
-    <div className="text-xs bg-black overflow-y-hidden flex-grow h-screen w-[232px] md:text-[0.875rem] lg:text-lg text-gray-500">
-      <div className=" space-y-4">
+    <div className="text-xs bg-black overflow-y-scroll scrollbar scrollbar-none flex-grow h-screen w-[232px] md:text-[0.875rem] lg:text-lg text-gray-500">
+      <div className="space-y-4">
         {/* Logo  */}
         <div className="flex items-center pb-3 justify-start cursor-pointer">
           <img
@@ -80,12 +80,12 @@ const Sidebar = () => {
         </div>
         <hr className="border-t-[1px] border-gray-600" />
         {/* Playlists names */}
-        <div className="space-y-4 text-sm md:text-base  overflow-y-scroll scrollbar ">
+        <div className="space-y-4  text-sm md:text-base overflow-y-auto scrollbar scrollbar-hide ">
           {playlists?.map((playlist) => (
             <p
               key={playlist.id}
               onClick={() => setPlaylistId(playlist.id)}
-              className="cursor-pointer hover:text-white px-[8px]"
+              className="cursor-pointer  hover:text-white px-[8px]"
             >
               {playlist.name}
             </p>

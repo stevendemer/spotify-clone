@@ -6,8 +6,8 @@ export default function useSpotify() {
   const { data: session, status } = useSession();
 
   useEffect(() => {
-    if (session) {
-      if (session.error === "RefreshAccessTokenError") {
+    if (status === "authenticated") {
+      if (session.error === "RefreshTokenError") {
         signIn(); // if not refresh token then login again
       }
       SpotifyApi.setAccessToken(session.user.accessToken);
