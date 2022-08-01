@@ -23,16 +23,13 @@ const Song = ({ track, order }) => {
   const spotifyApi = useSpotify();
 
   // The api returns permision error
-  const playSong = async () => {
-    console.log(SpotifyApi.getAccessToken());
+  const playSong = () => {
+    // console.log(SpotifyApi.getAccessToken());
     setCurrentTrackid(track.id);
     setIsPlaying(true);
-    spotifyApi
-      .play({
-        uris: [track.uri],
-      })
-      .then((d) => console.log(d))
-      .catch((err) => console.log(err));
+    spotifyApi.play({
+      uris: [track.uri],
+    });
   };
 
   //   console.log("Current track is called ", track.name);
@@ -54,7 +51,7 @@ const Song = ({ track, order }) => {
           <img
             className="h-10 w-12 mr-[16px]"
             src={track.album.images[0]?.url}
-            alt=""
+            alt={track.album.name}
           />
           <div>
             <p className="w-36 lg:w-64 text-base hover:underline truncate text-white">
