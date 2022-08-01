@@ -21,7 +21,7 @@ async function refreshAccessToken(token) {
     console.log("Error in Next Auth", error);
     return {
       ...token,
-      error: "RefreshAccessTokenError",
+      error: "Refresh Token Error",
     };
   }
 }
@@ -55,12 +55,11 @@ export default NextAuth({
       // return the previous token if the access token
       // has not expires yet
       if (Date.now() < token.accessTokenExpires) {
-        console.log("Access token is still valid.");
         return token;
       }
 
-      console.log("Access token has expired.");
-      return await useRefreshToken(token);
+      // access token has expired
+      return await refreshAccessToken(token);
     },
     async session({ session, token }) {
       session.user.accessToken = token.accessToken;

@@ -1,12 +1,11 @@
-import Head from "next/head";
-import Image from "next/image";
-import Layout from "../components/layout";
-import Dashboard from "./dashboard";
 import { useSession, getSession } from "next-auth/react";
 import { useRecoilValue } from "recoil";
 import { userStateId } from "../atoms/user-atom";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import Menu from "../components/menu";
+import Sidebar from "../components/sidebar";
+import Player from "../components/player";
 
 export default function Home() {
   const { data: session, status } = useSession();
@@ -18,17 +17,21 @@ export default function Home() {
 
   // the user is not logged in
   useEffect(() => {
-    if (!session && status != "authenticated") {
+    if (status != "authenticated") {
       router.push("/login");
     }
-  }, [session]);
+  }, [status, session]);
 
   return (
-    <>
-      <Layout>
-        <Dashboard />
-      </Layout>
-    </>
+    <div className="bg-black h-screen overflow-hidden">
+      <main className="flex">
+        <Sidebar />
+        <Menu />
+      </main>
+      <div className="sticky bottom-0">
+        <Player />
+      </div>
+    </div>
   );
 }
 
