@@ -18,6 +18,7 @@ import { useRecoilState } from "recoil";
 import { currentTrackIdState, isPlayingState } from "../atoms/song-atom";
 import useSongInfo from "../hooks/useSongInfo";
 import useSpotify from "../hooks/useSpotify";
+import millisToMinutesAndSeconds from "../lib/time";
 
 export default function Player() {
   const spotifyApi = useSpotify();
@@ -28,6 +29,8 @@ export default function Player() {
   const [volume, setVolume] = useState(80);
 
   const songInfo = useSongInfo(currentTrackId);
+
+  console.log(songInfo);
 
   const fetchCurrentSong = () => {
     console.log("Fetching the current song...");
@@ -55,12 +58,22 @@ export default function Player() {
       .catch((err) => console.log("Error going to previous song..."));
   };
 
+  // Spotify api returns an error ?
+  const handleSpacePress = (e) => {
+    if (e.key === " ") {
+      console.log("Space clicked !");
+      handlePlayPause();
+    }
+  };
+
   const handlePlayPause = () => {
-    console.log("Pausing the song");
     spotifyApi.getMyCurrentPlaybackState().then((data) => {
       if (data.body?.is_playing) {
         spotifyApi.pause();
         setIsPlaying(false);
+        console.log(
+          `Paused at ${millisToMinutesAndSeconds(data.body.progress_ms)}`
+        );
       } else {
         spotifyApi.play();
         setIsPlaying(true);
@@ -96,7 +109,7 @@ export default function Player() {
         <div className="flex items-center space-x-4">
           <img
             className="hidden md:inline h-12 w-12"
-            src={songInfo?.album.images?.[0].url}
+            src={songInfo.album.images?.[0].url}
             alt=""
           />
           <div>
@@ -113,15 +126,13 @@ export default function Player() {
             className="w-5 h-5 cursor-pointer hover:scale-125 transition transform duration-100 ease-out"
           />
           {isPlaying ? (
-            <PauseIcon
-              className="w-10 h-10 cursor-pointer transition transform text-[#18D860]"
-              onClick={handlePlayPause}
-            />
+            <button onClick={handlePlayPause}>
+              <PauseIcon className="w-10 h-10 cursor-pointer transition transform text-[#18D860]" />
+            </button>
           ) : (
-            <PlayIcon
-              className="w-10 h-10 cursor-pointer"
-              onClick={handlePlayPause}
-            />
+            <button onClick={handlePlayPause}>
+              <PlayIcon className="w-10 h-10 cursor-pointer" />
+            </button>
           )}
           <FastForwardIcon
             onClick={goToNext}

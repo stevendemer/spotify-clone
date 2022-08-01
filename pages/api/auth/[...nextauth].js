@@ -33,7 +33,7 @@ export default NextAuth({
     SpotifyProvider({
       clientId: process.env.SPOTIFY_CLIENT_ID,
       clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
-      authorization: { LOGIN_URL },
+      authorization: LOGIN_URL,
     }),
   ],
   pages: {
@@ -42,7 +42,7 @@ export default NextAuth({
   callbacks: {
     async jwt({ token, account, user }) {
       // initial sign in
-      if (account) {
+      if (account && user) {
         return {
           ...token,
           accessToken: account.access_token,

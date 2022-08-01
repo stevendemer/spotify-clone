@@ -21,6 +21,7 @@ export default function useSongInfo() {
           }
         );
         const res = await trackInfo.json();
+        console.log(res);
         setSongInfo(res);
       }
     };
