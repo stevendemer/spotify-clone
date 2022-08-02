@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import { signOut, useSession } from "next-auth/react";
-import { ChevronDownIcon } from "@heroicons/react/outline";
+import {
+  ChevronDownIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+} from "@heroicons/react/outline";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { shuffle } from "lodash";
 import useSpotify from "../hooks/useSpotify";
@@ -52,19 +56,27 @@ export default function Menu() {
 
   return (
     <div className="h-screen relative w-full flex-grow overflow-y-scroll scrollbar scrollbar-hide text-white text-3xl mb-10 ">
-      <header className="absolute top-5 right-8">
-        <div
-          onClick={signOut}
-          className="flex items-center justify-center relative py-4 h-[32px] hover:bg-opacity-50 transition-colors duration-300 space-x-2 cursor-pointer bg-black rounded-full"
-        >
+      <header className="absolute  top-0 left-0 right-0 overflow-hidden ">
+        <div className="flex items-center justify-between gap-4 relative  py-6 h-[32px] bg-opacity-50 transition-colors duration-300 space-x-2 cursor-pointer rounded-full">
+          <div className="flex items-center justify-start  px-4 space-x-6 text-white  ">
+            <ChevronLeftIcon className="w-6 h-6  " />
+            <ChevronRightIcon className="w-6 h-6 " />
+          </div>
           {/* User image and logout button */}
-          <img
-            alt=""
-            src={session?.user.image}
-            className="rounded-full w-8 h-8"
-          />
-          <div className="text-sm font-semibold mr-4">{session?.user.name}</div>
-          <ChevronDownIcon className="text-zinc-200 w-6 h-6  pr-2" />
+          <div
+            onClick={signOut}
+            className="relative right-0 flex items-center space-x-4 transition-all delay-100 hover:text-white text-zinc-300  bg-black rounded-full"
+          >
+            <img
+              alt=""
+              src={session?.user.image}
+              className="rounded-full w-8 h-8  "
+            />
+            <div className="text-sm font-semibold mr-4">
+              {session?.user.name}
+            </div>
+            <ChevronDownIcon className=" w-6 h-6  pr-2" />
+          </div>
         </div>
       </header>
       {/* background color and playlist cards */}
