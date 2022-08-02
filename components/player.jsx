@@ -18,6 +18,7 @@ import { useRecoilState } from "recoil";
 import { currentTrackIdState, isPlayingState } from "../atoms/song-atom";
 import useSongInfo from "../hooks/useSongInfo";
 import useSpotify from "../hooks/useSpotify";
+import millisToMinutesAndSeconds from "../lib/time";
 
 export default function Player() {
   const spotifyApi = useSpotify();
@@ -29,7 +30,8 @@ export default function Player() {
 
   const songInfo = useSongInfo(currentTrackId);
 
-  console.log(songInfo);
+  console.log("The track id is ", currentTrackId);
+  console.log("Song info is ", songInfo);
 
   const fetchCurrentSong = async () => {
     console.log("Fetching the current song...");
@@ -70,7 +72,9 @@ export default function Player() {
       if (data.body?.is_playing) {
         spotifyApi.pause();
         setIsPlaying(false);
-        console.log(`Paused at ${millisToSeconds(data.body.progress_ms)}`);
+        console.log(
+          `Paused at ${millisToMinutesAndSeconds(data.body.progress_ms)}`
+        );
       } else {
         spotifyApi.play();
         setIsPlaying(true);
@@ -79,11 +83,14 @@ export default function Player() {
   };
 
   useEffect(() => {
-    if (spotifyApi.getAccessToken() && !currentTrackId) {
-      fetchCurrentSong();
-      setVolume(80);
+    async function getSong() {
+      if (spotifyApi.getAccessToken()) {
+        fetchCurrentSong();
+        setVolume(80);
+      }
     }
-  }, [currentTrackId, spotifyApi]);
+    getSong();
+  }, [spotifyApi]);
 
   const debouncedAdjustVolume = useCallback(
     debounce((volume) => {
@@ -106,18 +113,25 @@ export default function Player() {
         <div className="flex basis-full justify-start items-center space-x-4">
           <img
             className="hidden md:inline h-12 w-12 cursor-pointer"
-            src={songInfo.album.images?.[0].url}
+            src={songInfo?.album.images?.[0].url}
             alt=""
           />
-          <div>
-            <h3 className="text-sm hover:underline cursor-pointer">
-              {songInfo?.name}
-            </h3>
-            <p className="text-xs text-gray-500 cursor-pointer">
-              {songInfo?.artists?.map((art) => (
-                <p className="hover:text-white hover:underline">{art.name}</p>
-              ))}
+          <div className="items-center grid grid-cols-2 my-0 mx-4">
+            <p className="justify-self-start w-full text-sm hover:underline cursor-pointer">
+              <div className="relative flex  whitespace-nowrap">
+                {songInfo?.name}
+              </div>
             </p>
+            <div className="w-full space-x-1 flex items-center min-w-0 col-start-1 text-xs text-gray-400 cursor-pointer ">
+              {songInfo?.artists?.map((art, idx) => (
+                <p
+                  key={idx}
+                  className=" whitespace-nowrap translate-x-0 w-fit hover:text-white hover:underline"
+                >
+                  {`${art.name}`}
+                </p>
+              ))}
+            </div>
           </div>
         </div>
         <div className="flex basis-full flex-grow items-center justify-start w-full space-x-8">

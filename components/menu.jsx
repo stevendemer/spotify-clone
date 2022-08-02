@@ -43,6 +43,13 @@ export default function Menu() {
       });
   }, [spotifyApi, playlistId]);
 
+  useEffect(() => {
+    spotifyApi
+      .getMyDevices()
+      .then((data) => console.log(data.body.devices[0].name))
+      .catch((err) => console.log("Something went wrong ", err));
+  }, []);
+
   return (
     <div className="h-screen relative w-full flex-grow overflow-y-scroll scrollbar scrollbar-hide text-white text-3xl mb-10 ">
       <header className="absolute top-5 right-8">

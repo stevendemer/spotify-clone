@@ -32,7 +32,7 @@ const Sidebar = () => {
         })
         .catch((err) => console.log("Error getting the playlists ", err));
     }
-  }, [session, SpotifyApi]);
+  }, [session]);
 
   return (
     <div className="text-xs bg-black overflow-y-scroll scrollbar scrollbar-none flex-grow h-screen w-[232px] md:text-[0.875rem] lg:text-lg text-gray-500">
@@ -81,11 +81,11 @@ const Sidebar = () => {
         <hr className="border-t-[1px] border-gray-600" />
         {/* Playlists names */}
         <div className="space-y-4  text-sm md:text-base overflow-y-auto scrollbar scrollbar-hide ">
-          {playlists?.map((playlist) => (
+          {playlists?.map((playlist, idx) => (
             <p
               key={playlist.id}
               onClick={() => setPlaylistId(playlist.id)}
-              className="cursor-pointer  hover:text-white px-[8px]"
+              className="cursor-pointer hover:text-white px-[8px]"
             >
               {playlist.name}
             </p>
