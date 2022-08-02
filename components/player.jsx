@@ -27,11 +27,23 @@ export default function Player() {
     useRecoilState(currentTrackIdState);
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState);
   const [volume, setVolume] = useState(80);
+  const [activeDevice, setActiveDevice] = useState(null);
+  const [currentSong, setCurrentSong] = useState(null);
 
   const songInfo = useSongInfo(currentTrackId);
 
   console.log("The track id is ", currentTrackId);
   console.log("Song info is ", songInfo);
+
+  useEffect(() => {
+    spotifyApi
+      .getMyCurrentPlaybackState()
+      .then((data) => {
+        setCurrentSong(data.body?.item);
+        setCurrentTrackId(data.body?.item.id);
+      })
+      .catch((err) => console.log("Error getting song ", err));
+  }, [spotifyApi, currentTrackId]);
 
   const fetchCurrentSong = async () => {
     console.log("Fetching the current song...");
@@ -49,15 +61,24 @@ export default function Player() {
     spotifyApi
       .skipToNext()
       .then(() => console.log("Skipped to next song..."))
-      .catch((err) => console.log("Error skipping to next song..."));
+      .catch(() => console.log("Error skipping to next song..."));
   };
 
   const goToPrev = () => {
     spotifyApi
       .skipToPrevious()
       .then(() => console.log("Skipped to previous song..."))
-      .catch((err) => console.log("Error going to previous song..."));
+      .catch(() => console.log("Error going to previous song..."));
   };
+
+  // when user clicks the space bar get triggered
+  useEffect(() => {
+    window.addEventListener("keydown", handleSpacePress);
+
+    return () => {
+      window.removeEventListener("keydown", handleSpacePress);
+    };
+  }, [isPlaying]);
 
   // Spotify api returns an error ?
   const handleSpacePress = (e) => {
@@ -84,13 +105,13 @@ export default function Player() {
 
   useEffect(() => {
     async function getSong() {
-      if (spotifyApi.getAccessToken()) {
+      if (spotifyApi.getAccessToken() && !currentTrackId) {
         fetchCurrentSong();
         setVolume(80);
       }
     }
     getSong();
-  }, [spotifyApi]);
+  }, [spotifyApi, currentTrackId]);
 
   const debouncedAdjustVolume = useCallback(
     debounce((volume) => {
@@ -100,6 +121,17 @@ export default function Player() {
     }, 200),
     []
   );
+
+  useEffect(() => {
+    spotifyApi
+      .getMyDevices()
+      .then((data) => {
+        let device = data.body?.devices[0];
+        device.is_active = true;
+        setActiveDevice(device.id);
+      })
+      .catch((err) => console.log("Error getting device id", err));
+  }, [spotifyApi]);
 
   useEffect(() => {
     if (volume > 0 && volume < 100) {
@@ -113,23 +145,23 @@ export default function Player() {
         <div className="flex basis-full justify-start items-center space-x-4">
           <img
             className="hidden md:inline h-12 w-12 cursor-pointer"
-            src={songInfo?.album.images?.[0].url}
+            src={currentSong?.album.images?.[0].url}
             alt=""
           />
           <div className="items-center grid grid-cols-2 my-0 mx-4">
-            <p className="justify-self-start w-full text-sm hover:underline cursor-pointer">
+            <div className="justify-self-start w-full text-sm hover:underline cursor-pointer">
               <div className="relative flex  whitespace-nowrap">
-                {songInfo?.name}
+                {currentSong?.name}
               </div>
-            </p>
+            </div>
             <div className="w-full space-x-1 flex items-center min-w-0 col-start-1 text-xs text-gray-400 cursor-pointer ">
-              {songInfo?.artists?.map((art, idx) => (
-                <p
+              {currentSong?.artists?.map((art, idx) => (
+                <div
                   key={idx}
                   className=" whitespace-nowrap translate-x-0 w-fit hover:text-white hover:underline"
                 >
                   {`${art.name}`}
-                </p>
+                </div>
               ))}
             </div>
           </div>
@@ -137,7 +169,7 @@ export default function Player() {
         <div className="flex basis-full flex-grow items-center justify-start w-full space-x-8">
           <SwitchHorizontalIcon className="w-5 h-5 cursor-pointer hover:scale-125 transition transform duration-100 ease-out" />
           <RewindIcon
-            onClick={goToPrev}
+            onClick={() => goToPrev()}
             className="w-5 h-5 cursor-pointer hover:scale-125 transition transform duration-100 ease-out"
           />
           {isPlaying ? (
@@ -150,7 +182,7 @@ export default function Player() {
             </button>
           )}
           <FastForwardIcon
-            onClick={goToNext}
+            onClick={() => goToNext()}
             className="w-5 h-5 cursor-pointer hover:scale-125 transition transform duration-100 ease-out"
           />
 
@@ -160,7 +192,7 @@ export default function Player() {
         <div className="flex items-center space-x-3 md:space-x-4 justify-end p-5">
           <VolumeDownIcon
             className="w-5 h-5 cursor-pointer hover:scale-125 transition transform duration-100 ease-out"
-            onClick={() => volume > 0 && setVolume(volume - 30)}
+            onClick={() => volume > 0 && setVolume(1)}
           />
           <input
             type="range"
@@ -172,7 +204,7 @@ export default function Player() {
           />
           <VolumeUpIcon
             className="w-5 h-5 cursor-pointer hover:scale-125 transition transform duration-100 ease-out"
-            onClick={() => volume < 100 && setVolume(volume + 30)}
+            onClick={() => volume <= 100 && setVolume(99)}
           />
         </div>
       </div>
