@@ -11,31 +11,38 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { useState, useEffect } from "react";
 import { userStateId } from "../atoms/user-atom";
 import { playlistIdState } from "../atoms/playlist-atom";
-import SpotifyApi from "../lib/spotify";
+import Link from "next/link";
+import useSpotify from "../hooks/useSpotify";
 
 const Sidebar = () => {
   const { data: session, status } = useSession();
 
   const [playlists, setPlaylists] = useState([]);
-  const userId = useRecoilValue(userStateId);
   const [playlistId, setPlaylistId] = useRecoilState(playlistIdState);
-
-  // console.log("Session", session);
-  // console.log("Playlist id", playlistId);
+  const [userId, setUserId] = useRecoilState(userStateId);
+  const spotifyApi = useSpotify();
 
   useEffect(() => {
-    if (SpotifyApi.getAccessToken()) {
+    spotifyApi
+      .getMe()
+      .then((data) => {
+        setUserId(data.body?.id);
+      })
+      .catch((err) => console.error("No user id", err));
+
+    if (spotifyApi.getAccessToken()) {
       // user is still registered
-      SpotifyApi.getUserPlaylists()
+      spotifyApi
+        .getUserPlaylists(userId)
         .then((data) => {
-          setPlaylists(data.body.items);
+          setPlaylists(data.body?.items);
         })
         .catch((err) => console.log("Error getting the playlists ", err));
     }
-  }, [session]);
+  }, [spotifyApi]);
 
   return (
-    <div className="text-xs bg-black overflow-y-scroll scrollbar scrollbar-none flex-grow h-screen w-[232px] md:text-[0.875rem] lg:text-lg text-gray-500">
+    <div className="text-xs pb-28 bg-black overflow-y-scroll outline-none scrollbar scrollbar-none flex-grow h-screen w-[232px] md:text-[0.875rem] lg:text-lg text-gray-500">
       <div className="space-y-4">
         {/* Logo  */}
         <div className="flex items-center pb-3 justify-start cursor-pointer">
@@ -50,17 +57,23 @@ const Sidebar = () => {
         </div>
         {/* Links */}
         <div className="space-y-4 ml-2 text-sm md:text-xl focus:outline-none focus:ring-none">
-          <button className="flex items-center hover:text-white focus:text-white space-x-2">
+          <button className="flex  items-center hover:text-white focus:text-white space-x-2">
             <HomeIcon className="h-[24px] w-[24px]" />
-            <p>Home</p>
+            <Link href="/">
+              <p>Home</p>
+            </Link>
           </button>
           <button className="flex items-center hover:text-white focus:text-white space-x-2">
             <SearchIcon className="h-[24px] w-[24px]" />
-            <p>Search</p>
+            <Link href="/browse">
+              <p>Search</p>
+            </Link>
           </button>
           <button className="flex items-center hover:text-white focus:text-white space-x-2">
             <LibraryIcon className="h-[24px] w-[24px]" />
-            <p>Library</p>
+            <Link href="/library">
+              <p>Library</p>
+            </Link>
           </button>
         </div>
         {/* Second links */}

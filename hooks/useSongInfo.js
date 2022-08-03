@@ -10,14 +10,16 @@ export default function useSongInfo() {
     useRecoilState(currentTrackIdState);
   const [songInfo, setSongInfo] = useState(null);
 
+  // works fine (for now)
   useEffect(() => {
-    const fetchSongInfo = async () => {
+    const fetchSong = async () => {
       if (currentTrackId) {
         const trackInfo = await fetch(
-          `https://api.spotify.com/v1/tracks/${currentTrackId}`,
+          `
+          https://api.spotify.com/v1/me/player/currently-playing`,
           {
             headers: {
-              Authorization: `Bearer ${spotifyApi.getAccessToken()}`,
+              Authorization: `Bearer ${process.env.SPOTIFY_AUTH_TOKEN}`,
             },
           }
         );
@@ -26,7 +28,26 @@ export default function useSongInfo() {
         setSongInfo(res);
       }
     };
-    fetchSongInfo();
+    fetchSong();
   }, [currentTrackId, spotifyApi]);
-  return songInfo;
+
+  // useEffect(() => {
+  //   const fetchSongInfo = async () => {
+  //     if (currentTrackId) {
+  //       const trackInfo = await fetch(
+  //         `https://api.spotify.com/v1/tracks/${currentTrackId}`,
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${spotifyApi.getAccessToken()}`,
+  //           },
+  //         }
+  //       );
+  //       const res = await trackInfo.json();
+  //       setCurrentTrackId(res.id);
+  //       setSongInfo(res);
+  //     }
+  //   };
+  //   fetchSongInfo();
+  // }, [currentTrackId, spotifyApi]);
+  // return songInfo;
 }

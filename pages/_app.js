@@ -2,6 +2,7 @@ import "../styles/globals.css";
 import { SessionProvider } from "next-auth/react";
 import { RecoilRoot } from "recoil";
 import Head from "next/head";
+import Layout from "../components/layout";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
@@ -12,7 +13,9 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
       </Head>
       <RecoilRoot>
         <SessionProvider session={session}>
-          <Component {...pageProps} />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
         </SessionProvider>
       </RecoilRoot>
     </>

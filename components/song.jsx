@@ -24,7 +24,6 @@ const Song = ({ track, order }) => {
 
   // The api returns permision error
   const playSong = async () => {
-    // console.log(SpotifyApi.getAccessToken());
     setCurrentTrackid(track.id);
     setIsPlaying(true);
     spotifyApi.play({
@@ -37,7 +36,7 @@ const Song = ({ track, order }) => {
   if (track.name && track.album) {
     return (
       <div
-        onClick={playSong}
+        onClick={() => playSong()}
         className="grid grid-cols-3 text-gray-400 py-2 px-5 hover:bg-gray-900 cursor-pointer rounded-lg"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}

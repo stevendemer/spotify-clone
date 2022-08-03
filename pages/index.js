@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import Menu from "../components/menu";
 import Sidebar from "../components/sidebar";
 import Player from "../components/player";
+import Layout from "../components/layout";
 
 export default function Home() {
   const { data: session, status } = useSession();
@@ -22,16 +23,22 @@ export default function Home() {
     }
   }, [status, session]);
 
+  // return (
+  //   <div className="bg-black h-screen overflow-hidden">
+  //     <main className="flex">
+  //       <Sidebar />
+  //       <Menu />
+  //     </main>
+  //     <div className="sticky bottom-0">
+  //       <Player />
+  //     </div>
+  //   </div>
+  // );
+
   return (
-    <div className="bg-black h-screen overflow-hidden">
-      <main className="flex">
-        <Sidebar />
-        <Menu />
-      </main>
-      <div className="sticky bottom-0">
-        <Player />
-      </div>
-    </div>
+    <>
+      <Menu />
+    </>
   );
 }
 
