@@ -22,53 +22,32 @@ import millisToMinutesAndSeconds from "../lib/time";
 
 export default function Player() {
   const spotifyApi = useSpotify();
-  const { data: session, status } = useSession();
   const [currentTrackId, setCurrentTrackId] =
     useRecoilState(currentTrackIdState);
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState);
   const [volume, setVolume] = useState(80);
-  const [activeDevice, setActiveDevice] = useState(null);
-  const [currentSong, setCurrentSong] = useState(null);
-
   const songInfo = useSongInfo(currentTrackId);
 
-  console.log("The track id is ", currentTrackId);
-  console.log("Song info is ", songInfo);
-
-  useEffect(() => {
-    spotifyApi
-      .getMyCurrentPlaybackState()
-      .then((data) => {
-        setCurrentSong(data.body?.item);
-        setCurrentTrackId(data.body?.item.id);
-      })
-      .catch((err) => console.log("Error getting song ", err));
-  }, [spotifyApi, currentTrackId]);
-
   const fetchCurrentSong = async () => {
-    console.log("Fetching the current song...");
     if (!songInfo) {
-      spotifyApi.getMyCurrentPlayingTrack().then((data) => {
+      spotifyApi.getMyCurrentPlaybackState().then((data) => {
         setCurrentTrackId(data.body?.item?.id);
-        spotifyApi.getMyCurrentPlaybackState().then((data) => {
-          setIsPlaying(data.body?.is_playing);
-        });
+        setIsPlaying(data.body?.is_playing);
       });
     }
   };
 
-  const goToNext = () => {
-    spotifyApi
-      .skipToNext()
-      .then(() => console.log("Skipped to next song..."))
-      .catch(() => console.log("Error skipping to next song..."));
-  };
-
-  const goToPrev = () => {
-    spotifyApi
-      .skipToPrevious()
-      .then(() => console.log("Skipped to previous song..."))
-      .catch(() => console.log("Error going to previous song..."));
+  // works
+  const changeSong = (e) => {
+    let id = e.currentTarget.id;
+    console.log(id);
+    if (id === "prev") {
+      spotifyApi
+        .skipToPrevious()
+        .then(() => console.log("Skipped to previous song"));
+    } else if (id === "next") {
+      spotifyApi.skipToNext().then(() => console.log("Skipped to next song"));
+    }
   };
 
   // when user clicks the space bar get triggered
@@ -103,16 +82,6 @@ export default function Player() {
     });
   };
 
-  useEffect(() => {
-    async function getSong() {
-      if (spotifyApi.getAccessToken() && !currentTrackId) {
-        fetchCurrentSong();
-        setVolume(80);
-      }
-    }
-    getSong();
-  }, [spotifyApi, currentTrackId]);
-
   const debouncedAdjustVolume = useCallback(
     debounce((volume) => {
       spotifyApi.setVolume(volume).catch((err) => {
@@ -122,16 +91,16 @@ export default function Player() {
     []
   );
 
-  useEffect(() => {
-    spotifyApi
-      .getMyDevices()
-      .then((data) => {
-        let device = data.body?.devices[0];
-        device.is_active = true;
-        setActiveDevice(device.id);
-      })
-      .catch((err) => console.log("Error getting device id", err));
-  }, [spotifyApi]);
+  // useEffect(() => {
+  //   spotifyApi
+  //     .getMyDevices()
+  //     .then((data) => {
+  //       let device = data.body?.devices[0];
+  //       device.is_active = true;
+  //       setActiveDevice(device.id);
+  //     })
+  //     .catch((err) => console.log("Error getting device id", err));
+  // }, [spotifyApi]);
 
   useEffect(() => {
     if (volume > 0 && volume < 100) {
@@ -139,23 +108,30 @@ export default function Player() {
     }
   }, [volume]);
 
+  useEffect(() => {
+    if (spotifyApi.getAccessToken()) {
+      fetchCurrentSong();
+      setVolume(70);
+    }
+  }, [spotifyApi]);
+
   return (
     <>
       <div className="bg-gradient-to-b  from-gray-900 to-black text-white flex items-center justify-between h-24 text-sm px-4 md:text-base py-0 md:px-8">
         <div className="flex basis-full justify-start items-center space-x-4">
           <img
             className="hidden md:inline h-12 w-12 cursor-pointer"
-            src={currentSong?.album.images?.[0].url}
+            src={songInfo?.album.images?.[0].url}
             alt=""
           />
           <div className="items-center grid grid-cols-2 my-0 mx-4">
             <div className="justify-self-start w-full text-sm hover:underline cursor-pointer">
               <div className="relative flex  whitespace-nowrap">
-                {currentSong?.name}
+                {songInfo?.name}
               </div>
             </div>
             <div className="w-full space-x-1 flex items-center min-w-0 col-start-1 text-xs text-gray-400 cursor-pointer ">
-              {currentSong?.artists?.map((art, idx) => (
+              {songInfo?.artists?.map((art, idx) => (
                 <div
                   key={idx}
                   className=" whitespace-nowrap translate-x-0 w-fit hover:text-white hover:underline"
@@ -169,7 +145,8 @@ export default function Player() {
         <div className="flex basis-full flex-grow items-center justify-start w-full space-x-8">
           <SwitchHorizontalIcon className="w-5 h-5 cursor-pointer hover:scale-125 transition transform duration-100 ease-out" />
           <RewindIcon
-            onClick={() => goToPrev()}
+            id="prev"
+            onClick={(e) => changeSong(e)}
             className="w-5 h-5 cursor-pointer hover:scale-125 transition transform duration-100 ease-out"
           />
           {isPlaying ? (
@@ -182,7 +159,8 @@ export default function Player() {
             </button>
           )}
           <FastForwardIcon
-            onClick={() => goToNext()}
+            id="next"
+            onClick={(e) => changeSong(e)}
             className="w-5 h-5 cursor-pointer hover:scale-125 transition transform duration-100 ease-out"
           />
 

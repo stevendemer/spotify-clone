@@ -23,17 +23,10 @@ const Sidebar = () => {
   const spotifyApi = useSpotify();
 
   useEffect(() => {
-    spotifyApi
-      .getMe()
-      .then((data) => {
-        setUserId(data.body?.id);
-      })
-      .catch((err) => console.error("No user id", err));
-
     if (spotifyApi.getAccessToken()) {
       // user is still registered
       spotifyApi
-        .getUserPlaylists(userId)
+        .getUserPlaylists()
         .then((data) => {
           setPlaylists(data.body?.items);
         })
