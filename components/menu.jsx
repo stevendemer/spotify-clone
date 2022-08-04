@@ -57,8 +57,8 @@ export default function Menu() {
       <header className="absolute top-0 left-0 right-0 overflow-hidden ">
         <div className="flex items-center justify-between gap-4 relative  py-6 h-[32px]  transition-colors duration-300 space-x-2 rounded-full">
           <div className="flex fixed items-center justify-start px-4 space-x-6  text-white ">
-            <ChevronLeftIcon className="cursor-pointer w-6 h-6 bg-opacity-20 bg-gray-200 rounded-full  " />
-            <ChevronRightIcon className="cursor-pointer w-6 h-6 bg-opacity-20 bg-gray-200  rounded-full " />
+            <ChevronLeftIcon className="cursor-pointer w-6 h-6 rounded-full  " />
+            <ChevronRightIcon className="cursor-pointer w-6 h-6 rounded-full " />
           </div>
           {/* User image and logout button */}
           <div
