@@ -4,7 +4,6 @@ import { userStateId } from "../atoms/user-atom";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import Menu from "../components/menu";
-import { getLayout as getDefaultLayout } from "../layouts/layout";
 
 export default function Home() {
   const router = useRouter();
@@ -30,8 +29,6 @@ export default function Home() {
     </>
   );
 }
-
-Home.getLayout = (page) => getDefaultLayout(page, { showSidebar: true });
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
