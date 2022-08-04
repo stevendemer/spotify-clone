@@ -9,7 +9,7 @@ import { BsInstagram, BsTwitter, BsFacebook } from "react-icons/bs";
 import { useSession, signOut } from "next-auth/react";
 import useSpotify from "../hooks/useSpotify";
 
-export default function Browse() {
+const Browse = () => {
   const { data: session } = useSession();
   const [categories, setCategories] = useState([]);
   const spotifyApi = useSpotify();
@@ -130,4 +130,6 @@ export default function Browse() {
       </div>
     </div>
   );
-}
+};
+
+export default Browse;

@@ -4,36 +4,25 @@ import { userStateId } from "../atoms/user-atom";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import Menu from "../components/menu";
-import Sidebar from "../components/sidebar";
-import Player from "../components/player";
-import Layout from "../components/layout";
+import { getLayout as getDefaultLayout } from "../layouts/layout";
 
 export default function Home() {
-  const { data: session, status } = useSession();
   const router = useRouter();
+  const { data: session, status } = useSession();
 
   const userId = useRecoilValue(userStateId);
 
   console.log(`The user id is ${userId}`);
 
   // the user is not logged in
+
   useEffect(() => {
-    if (!session || status != "authenticated") {
+    if (session) {
+      router.push("/");
+    } else {
       router.push("/login");
     }
-  }, [status, session]);
-
-  // return (
-  //   <div className="bg-black h-screen overflow-hidden">
-  //     <main className="flex">
-  //       <Sidebar />
-  //       <Menu />
-  //     </main>
-  //     <div className="sticky bottom-0">
-  //       <Player />
-  //     </div>
-  //   </div>
-  // );
+  }, [session]);
 
   return (
     <>
@@ -41,6 +30,8 @@ export default function Home() {
     </>
   );
 }
+
+Home.getLayout = (page) => getDefaultLayout(page, { showSidebar: true });
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);

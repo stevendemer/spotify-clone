@@ -10,7 +10,6 @@ import { shuffle } from "lodash";
 import useSpotify from "../hooks/useSpotify";
 import { playlistIdState, playlistState } from "../atoms/playlist-atom";
 import Songs from "./songs";
-import Link from "next/link";
 
 const bgColors = [
   "from-yellow-500",
@@ -22,7 +21,7 @@ const bgColors = [
   "from-rose-500",
 ];
 
-export default function Menu() {
+const Menu = () => {
   const { data: session } = useSession();
   const [colorMode, setColorMode] = useState("");
   const playlistId = useRecoilValue(playlistIdState); // read only
@@ -53,7 +52,7 @@ export default function Menu() {
   // }, []);
 
   return (
-    <div className="h-screen relative w-full flex-grow overflow-y-scroll scrollbar scrollbar-hide text-white text-3xl mb-10 ">
+    <div className="h-screen relative w-full flex-grow overflow-y-scroll scrollbar scrollbar-hide text-white bg-black text-3xl mb-10 ">
       <header className="absolute top-0 left-0 right-0 overflow-hidden ">
         <div className="flex items-center justify-between gap-4 relative  py-6 h-[32px]  transition-colors duration-300 space-x-2 rounded-full">
           <div className="flex fixed items-center justify-start px-4 space-x-6  text-white ">
@@ -96,4 +95,6 @@ export default function Menu() {
       <Songs />
     </div>
   );
-}
+};
+
+export default Menu;
