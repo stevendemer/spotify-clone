@@ -116,8 +116,8 @@ export default function Player() {
   }, [spotifyApi]);
 
   return (
-    <>
-      <div className="bg-gradient-to-b  from-gray-900 to-black text-white flex items-center justify-between h-24 text-sm px-4 md:text-base py-0 md:px-8">
+    <div>
+      <div className="bg-gradient-to-b relative  from-gray-900 to-black text-white flex items-center justify-between h-24 text-sm px-4 md:text-base py-0 md:px-8">
         <div className="flex basis-full justify-start items-center space-x-4">
           <img
             className="hidden md:inline h-12 w-12 cursor-pointer"
@@ -186,6 +186,6 @@ export default function Player() {
           />
         </div>
       </div>
-    </>
+    </div>
   );
 }

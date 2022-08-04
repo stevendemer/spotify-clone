@@ -5,6 +5,7 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
 } from "@heroicons/react/outline";
+import { BsInstagram, BsTwitter, BsFacebook } from "react-icons/bs";
 import { useSession, signOut } from "next-auth/react";
 import useSpotify from "../hooks/useSpotify";
 
@@ -27,9 +28,9 @@ export default function Browse() {
   }, []);
 
   return (
-    <div className="w-full text-white h-screen overflow-scroll">
+    <div className="w-full text-white h-screen overflow-y-scroll  scrollbar-thumb-white">
       {/* Header with search bar */}
-      <div className="sticky z-30 top-0 h-16 w-full  bg-black">
+      <div className="sticky z-30 top-0 h-16 w-full bg-black">
         <div className="flex whitespace-nowrap mt-4 items-center space-x-8 ">
           <ChevronLeftIcon className="w-6 h-6 text-white cursor-pointer" />
           <ChevronRightIcon className="w-6 h-6 text-white cursor-pointer" />
@@ -82,6 +83,50 @@ export default function Browse() {
         {categories?.map((ctg, idx) => (
           <Card title={ctg.name} key={ctg.id} bgImage={ctg.icons[0].url} />
         ))}
+      </div>
+      {/* Footer section */}
+      <div className="w-full flex overflow-y-hidden justify-between items-center mt-10 h-96 space-x-8 border-t-[0.2px] relative">
+        <div className="flex flex-col py-6 px-4 text-gray-400 space-y-2 first:pl-10">
+          <div className="font-bold text-md text-white">Company</div>
+          <div className="text-sm hover:underline hover:text-white cursor-pointer">
+            About us
+          </div>
+          <div className="text-sm hover:underline hover:text-white cursor-pointer">
+            Jobs
+          </div>
+          <div className="text-sm hover:underline hover:text-white cursor-pointer">
+            For the record
+          </div>
+        </div>
+        <div className="flex flex-col py-6 px-4 text-gray-400 space-y-2">
+          <div className="font-bold text-md text-white">Communities</div>
+          <div className="text-sm hover:underline hover:text-white cursor-pointer">
+            For artists
+          </div>
+          <div className="text-sm hover:underline hover:text-white cursor-pointer">
+            Ads
+          </div>
+          <div className="text-sm hover:underline hover:text-white cursor-pointer">
+            Investors
+          </div>
+          <div className="text-sm hover:underline hover:text-white cursor-pointer">
+            Providers
+          </div>
+        </div>
+        <div className="flex flex-col py-6 px-4 text-gray-400 space-y-2">
+          <div className="font-bold text-md text-white">Useful links</div>
+          <div className="text-sm hover:underline hover:text-white cursor-pointer">
+            Support
+          </div>
+          <div className="text-sm hover:underline hover:text-white cursor-pointer">
+            Our mobile app
+          </div>
+        </div>
+        <div className="flex space-x-6 items-center text-white last:pr-6 ">
+          <BsFacebook className="w-8 h-8 m-4 opacity-50 hover:opacity-100 " />
+          <BsTwitter className="w-8 h-8 opacity-50 hover:opacity-100" />
+          <BsInstagram className="w-8 h-8 opacity-50 hover:opacity-100" />
+        </div>
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ export default function Layout({ children }) {
         <Sidebar />
         {children}
       </main>
-      <div className="sticky bottom-0">
+      <div className="w-full z-50 absolute bottom-0">
         <Player />
       </div>
     </div>
