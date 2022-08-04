@@ -117,7 +117,7 @@ export default function Player() {
 
   return (
     <div>
-      <div className="bg-gradient-to-b relative  from-gray-900 to-black text-white flex items-center justify-between h-24 text-sm px-4 md:text-base py-0 md:px-8">
+      <div className="bg-gradient-to-b relative from-gray-900 to-black text-white flex items-center justify-between h-24 text-sm px-4 md:text-base py-0 md:px-8">
         <div className="flex basis-full justify-start items-center space-x-4">
           <img
             className="hidden md:inline h-12 w-12 cursor-pointer"
@@ -126,7 +126,7 @@ export default function Player() {
           />
           <div className="items-center grid grid-cols-2 my-0 mx-4">
             <div className="justify-self-start w-full text-sm hover:underline cursor-pointer">
-              <div className="relative flex  whitespace-nowrap">
+              <div className="relative flex whitespace-nowrap">
                 {songInfo?.name}
               </div>
             </div>
@@ -142,7 +142,7 @@ export default function Player() {
             </div>
           </div>
         </div>
-        <div className="flex basis-full flex-grow items-center justify-start w-full space-x-8">
+        <div className="flex basis-full items-center justify-evenly w-full space-x-2 ">
           <SwitchHorizontalIcon className="w-5 h-5 cursor-pointer hover:scale-125 transition transform duration-100 ease-out" />
           <RewindIcon
             id="prev"
@@ -167,7 +167,7 @@ export default function Player() {
           <ReplyIcon className="w-5 h-5 cursor-pointer hover:scale-125 transition transform duration-100 ease-out" />
           {/* playback bar  */}
         </div>
-        <div className="flex items-center space-x-3 md:space-x-4 justify-end p-5">
+        <div className="flex  space-x-2 w-full justify-end p-5">
           <VolumeDownIcon
             className="w-5 h-5 cursor-pointer hover:scale-125 transition transform duration-100 ease-out"
             onClick={() => volume > 0 && setVolume(1)}

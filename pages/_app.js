@@ -8,39 +8,33 @@ import { useRouter } from "next/router";
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const { asPath } = useRouter();
 
-  if (!asPath.includes("/login")) {
-    return (
-      <>
-        <Head>
-          <link rel="shortcut icon" href="/images/spotify_icon.png" />
-          <title>Spotify 2.0</title>
-        </Head>
-        <RecoilRoot>
-          <SessionProvider session={session}>
-            <Layout hasSidebar>
-              <Component {...pageProps} />
-            </Layout>
-          </SessionProvider>
-        </RecoilRoot>
-      </>
-    );
-  } else {
-    return (
-      <>
-        <Head>
-          <link rel="shortcut icon" href="/images/spotify_icon.png" />
-          <title>Spotify 2.0</title>
-        </Head>
-        <RecoilRoot>
-          <SessionProvider session={session}>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </SessionProvider>
-        </RecoilRoot>
-      </>
-    );
-  }
+  const renderSidebar = () => {
+    if (!asPath.includes("login")) {
+      return (
+        <Layout hasSidebar>
+          <Component {...pageProps} />
+        </Layout>
+      );
+    } else {
+      return (
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      );
+    }
+  };
+
+  return (
+    <>
+      <Head>
+        <link rel="shortcut icon" href="/images/spotify_icon.png" />
+        <title>Spotify 2.0</title>
+      </Head>
+      <RecoilRoot>
+        <SessionProvider session={session}>{renderSidebar()}</SessionProvider>
+      </RecoilRoot>
+    </>
+  );
 }
 
 export default MyApp;

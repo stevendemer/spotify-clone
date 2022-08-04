@@ -28,7 +28,7 @@ const Browse = () => {
   }, []);
 
   return (
-    <div className="w-full text-white h-screen overflow-y-scroll  scrollbar-thumb-white">
+    <div className="w-full text-white h-screen overflow-y-scroll scrollbar-thumb-white ">
       {/* Header with search bar */}
       <div className="sticky z-30 top-0 h-16 w-full bg-black">
         <div className="flex whitespace-nowrap mt-4 items-center space-x-8 ">

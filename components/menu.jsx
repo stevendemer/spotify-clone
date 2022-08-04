@@ -53,7 +53,7 @@ const Menu = () => {
 
   return (
     <div className="h-screen relative w-full flex-grow overflow-y-scroll scrollbar scrollbar-hide text-white bg-black text-3xl mb-10 ">
-      <header className="absolute top-0 left-0 right-0 overflow-hidden ">
+      <header className="absolute top-0 left-0 right-0  ">
         <div className="flex items-center justify-between gap-4 relative  py-6 h-[32px]  transition-colors duration-300 space-x-2 rounded-full">
           <div className="flex fixed items-center justify-start px-4 space-x-6  text-white ">
             <ChevronLeftIcon className="cursor-pointer w-6 h-6 rounded-full  " />

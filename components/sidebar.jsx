@@ -13,9 +13,11 @@ import { userStateId } from "../atoms/user-atom";
 import { playlistIdState } from "../atoms/playlist-atom";
 import Link from "next/link";
 import useSpotify from "../hooks/useSpotify";
+import { useRouter } from "next/router";
 
 const Sidebar = () => {
   const { data: session, status } = useSession();
+  const router = useRouter();
 
   const [playlists, setPlaylists] = useState([]);
   const [playlistId, setPlaylistId] = useRecoilState(playlistIdState);
@@ -35,10 +37,10 @@ const Sidebar = () => {
   }, [spotifyApi]);
 
   return (
-    <div className="text-xs pb-28 bg-black overflow-y-scroll outline-none scrollbar scrollbar-none flex-grow h-screen w-[232px] md:text-[0.875rem] lg:text-lg text-gray-500">
+    <div className="text-xs pb-28 overflow-y-scroll scrollbar-track-black scrollbar-thumb-zinc-600 scrollbar-thin bg-black outline-none flex-grow h-screen w-[232px] md:text-[0.875rem] lg:text-lg text-gray-500">
       <div className="space-y-4">
         {/* Logo  */}
-        <div className="flex items-center pb-3 justify-start cursor-pointer">
+        <div className="flex items-center pb-3 justify-start  cursor-pointer">
           <img
             className="w-22 mt-4 h-[40px]"
             src="/images/spo_logo.png"
@@ -86,11 +88,14 @@ const Sidebar = () => {
         </div>
         <hr className="border-t-[1px] border-gray-600" />
         {/* Playlists names */}
-        <div className="space-y-4  text-sm md:text-base overflow-y-auto scrollbar scrollbar-hide ">
+        <div className="space-y-4 text-sm md:text-base ">
           {playlists?.map((playlist, idx) => (
             <p
               key={playlist.id}
-              onClick={() => setPlaylistId(playlist.id)}
+              onClick={() => {
+                setPlaylistId(playlist.id);
+                router.replace("/");
+              }}
               className="cursor-pointer hover:text-white px-[8px]"
             >
               {playlist.name}
