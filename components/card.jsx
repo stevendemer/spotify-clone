@@ -1,15 +1,20 @@
 import PropTypes from "prop-types";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
-export default function Card({ title, bgImage }) {
+export default function Card({ category }) {
+  const router = useRouter();
+
   return (
-    <div className="flex items-center justify-around border-b-2  rounded-lg  mx-4">
+    <div className="flex items-center  border-b-2 whitespace-wrap relative rounded-lg ">
       <div
         className={`
-        cursor-pointer relative w-full h-60  `}
+        cursor-pointer  w-full h-auto `}
+        onClick={() => router.push(`/category/${category.id}`)}
       >
-        <img className="" src={bgImage} alt="" />
-        <div className="text-white relative px-2 whitespace-nowrap font-bold p-4">
-          {title}
+        <img className="" src={category?.icons[0].url} alt="" />
+        <div className="text-white relative px-2   font-bold p-4">
+          {category.name}
         </div>
       </div>
     </div>
@@ -17,6 +22,5 @@ export default function Card({ title, bgImage }) {
 }
 
 Card.propTypes = {
-  title: PropTypes.string.isRequired,
-  bgImage: PropTypes.string.isRequired,
+  category: PropTypes.object.isRequired,
 };

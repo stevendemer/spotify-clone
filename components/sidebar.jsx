@@ -37,7 +37,7 @@ const Sidebar = () => {
   }, [spotifyApi]);
 
   return (
-    <div className="text-xs pb-28 overflow-y-scroll scrollbar-track-black scrollbar-thumb-zinc-600 scrollbar-thin bg-black outline-none flex-grow h-screen w-[232px] md:text-[0.875rem] lg:text-lg text-gray-500">
+    <div className="text-xs pb-28  overflow-y-scroll scrollbar-track-black scrollbar-thumb-zinc-600 scrollbar-thin bg-black outline-none  h-screen w-[232px] md:text-[0.875rem] lg:text-lg text-gray-500">
       <div className="space-y-4">
         {/* Logo  */}
         <div className="flex items-center pb-3 justify-start  cursor-pointer">

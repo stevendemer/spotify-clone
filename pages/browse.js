@@ -8,11 +8,13 @@ import {
 import { BsInstagram, BsTwitter, BsFacebook } from "react-icons/bs";
 import { useSession, signOut } from "next-auth/react";
 import useSpotify from "../hooks/useSpotify";
+import { useRouter } from "next/router";
 
 const Browse = () => {
   const { data: session } = useSession();
   const [categories, setCategories] = useState([]);
   const spotifyApi = useSpotify();
+  const router = useRouter();
 
   // get a list of categories
   useEffect(() => {
@@ -32,8 +34,14 @@ const Browse = () => {
       {/* Header with search bar */}
       <div className="sticky z-30 top-0 h-16 w-full bg-black">
         <div className="flex whitespace-nowrap mt-4 items-center space-x-8 ">
-          <ChevronLeftIcon className="w-6 h-6 text-white cursor-pointer" />
-          <ChevronRightIcon className="w-6 h-6 text-white cursor-pointer" />
+          <ChevronLeftIcon
+            onClick={() => router.push("/")}
+            className="w-6 h-6 text-white cursor-pointer"
+          />
+          <ChevronRightIcon
+            onClick={() => router.back()}
+            className="w-6 h-6 text-white cursor-pointer"
+          />
           <form role="search">
             <div className="relative">
               <div className="flex top-2 absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
@@ -79,9 +87,9 @@ const Browse = () => {
       </div>
 
       <div className="font-bold m-4">Browse all</div>
-      <div className="grid grid-cols-7 gap-6 last:mb-36 ">
-        {categories?.map((ctg, idx) => (
-          <Card title={ctg.name} key={ctg.id} bgImage={ctg.icons[0].url} />
+      <div className="grid grid-cols-7 gap-6 p-10 last:mb-36 ">
+        {categories?.map((ctg) => (
+          <Card category={ctg} key={ctg.id} />
         ))}
       </div>
       {/* Footer section */}
