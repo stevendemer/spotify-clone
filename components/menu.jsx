@@ -10,6 +10,7 @@ import { shuffle } from "lodash";
 import useSpotify from "../hooks/useSpotify";
 import { playlistIdState, playlistState } from "../atoms/playlist-atom";
 import Songs from "./songs";
+import Banner from "./banner";
 
 const bgColors = [
   "from-yellow-500",
@@ -76,7 +77,6 @@ const Menu = () => {
           </div>
         </div>
       </header>
-      {/* background color and playlist cards */}
       <section
         className={`flex items-end space-x-7 bg-gradient-to-b to-black ${colorMode} h-80 text-white p-8`}
       >

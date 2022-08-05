@@ -9,7 +9,7 @@ export default function Card({ category }) {
     <div className="flex items-center  border-b-2 whitespace-wrap relative rounded-lg ">
       <div
         className={`
-        cursor-pointer  w-full h-auto `}
+        cursor-pointer w-full h-auto transition-all delay-75 duration-100 hover:bg-neutral-700 `}
         onClick={() => router.push(`/category/${category.id}`)}
       >
         <img className="" src={category?.icons[0].url} alt="" />
