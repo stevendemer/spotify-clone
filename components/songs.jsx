@@ -6,7 +6,7 @@ const Songs = ({ playlist }) => {
 
   return (
     <>
-      <div className="text-gray-400 gap-x-10 space-x-52 grid grid-rows-2 grid-cols-4">
+      <div className="text-gray-400 gap-x-10 space-x-60 grid grid-rows-2 grid-cols-4">
         <div className="text-sm pl-24"># TITLE</div>
         <div className="text-sm">ALBUM</div>
         <div className="text-sm">
