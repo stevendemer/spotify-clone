@@ -24,10 +24,10 @@ const Song = ({ track, order }) => {
 
   // The api returns permision error
   const playSong = async () => {
-    setCurrentTrackid(track.track.id);
+    setCurrentTrackid(track.id);
     setIsPlaying(true);
     spotifyApi.play({
-      uris: [track.track.uri],
+      uris: [track.uri],
     });
   };
 
@@ -79,11 +79,11 @@ const Song = ({ track, order }) => {
           onClick={() => playSong()}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          className=" flex h-28 items-center cursor-pointer space-x-4 transition-all duration-100 delay-100 border-b border-gray-800 hover:bg-gray-800"
+          className=" flex h-28 px-10 items-center cursor-pointer space-x-4 transition-all duration-100 delay-100 border-b border-gray-800 hover:bg-gray-800"
         >
           <div className="flex-shrink-0 p-2">
             {isHovered ? (
-              <BiPlay className="w-6 h-6 text-lime-400" />
+              <BiPlay className="w-6 h-6 text-white" />
             ) : (
               <div className="text-base">{order + 1}</div>
             )}
