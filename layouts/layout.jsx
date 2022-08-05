@@ -8,7 +8,7 @@ export default function Layout({ hasSidebar, children, ...restProps }) {
         {hasSidebar && <Sidebar />}
         {children}
       </main>
-      <div className="w-full absolute bottom-0">{hasSidebar && <Player />}</div>
+      <div className="w-full  sticky bottom-0">{hasSidebar && <Player />}</div>
     </div>
   );
 }
