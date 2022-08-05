@@ -30,7 +30,7 @@ const Sidebar = () => {
       spotifyApi
         .getUserPlaylists()
         .then((data) => {
-          setPlaylists(data.body?.items);
+          setPlaylists(data.body.items);
         })
         .catch((err) => console.log("Error getting the playlists ", err));
     }
@@ -100,7 +100,7 @@ const Sidebar = () => {
               key={playlist.id}
               onClick={() => {
                 setPlaylistId(playlist.id);
-                router.push("/", undefined, { shallow: true });
+                router.push("/");
               }}
               className="cursor-pointer hover:text-white px-[8px]"
             >

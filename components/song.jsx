@@ -1,4 +1,4 @@
-import { ClockIcon } from "@heroicons/react/solid";
+import { ClockIcon, HeartIcon } from "@heroicons/react/solid";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 import {
@@ -24,55 +24,84 @@ const Song = ({ track, order }) => {
 
   // The api returns permision error
   const playSong = async () => {
-    setCurrentTrackid(track.id);
+    setCurrentTrackid(track.track.id);
     setIsPlaying(true);
     spotifyApi.play({
-      uris: [track.uri],
+      uris: [track.track.uri],
     });
   };
 
-  //   console.log("Current track is called ", track.name);
+  // if (track.name && track.album) {
+  //   return (
+  //     <div
+  //       onClick={() => playSong()}
+  //       classNameName="grid grid-cols-3 text-gray-400 py-2 px-5 hover:bg-gray-900 cursor-pointer rounded-lg"
+  //       onMouseEnter={() => setIsHovered(true)}
+  //       onMouseLeave={() => setIsHovered(false)}
+  //     >
+  //       <div classNameName="flex justify-self-start items-center space-x-4 py-4">
+  //         {isHovered ? (
+  //           <BiPlay classNameName="w-6 h-6 text-white" />
+  //         ) : (
+  //           <p classNameName="text-base">{order + 1}</p>
+  //         )}
+  //         <img
+  //           classNameName="h-10 w-12 mr-[16px]"
+  //           src={track.album.images[0]?.url}
+  //           alt={track.album.name}
+  //         />
+  //         <div>
+  //           <p classNameName="w-36 lg:w-64 text-base hover:underline truncate text-white">
+  //             {track.name}
+  //           </p>
+  //           <p>{track.artist}</p>
+  //         </div>
+  //       </div>
+  //       <div classNameName="flex items-center text-sm justify-between ml-auto md:ml-0">
+  //         <p classNameName="w-55 hidden md:inline hover:underline hover:text-white">
+  //           {track.album.name}
+  //         </p>
+  //         <p classNameName="ml-10 text-gray-400">
+  //           {millisToMinutesAndSeconds(track.duration_ms)}
+  //         </p>
+  //       </div>
+  //       <div classNameName="flex items-center text-white text-sm justify-between ml-auto">
+  //         {track.album.release_date}
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
-  if (track.name && track.album) {
-    return (
-      <div
-        onClick={() => playSong()}
-        className="grid grid-cols-3 text-gray-400 py-2 px-5 hover:bg-gray-900 cursor-pointer rounded-lg"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        <div className="flex justify-self-start items-center space-x-4 py-4">
-          {isHovered ? (
-            <BiPlay className="w-6 h-6 text-white" />
-          ) : (
-            <p className="text-base">{order + 1}</p>
-          )}
+  return (
+    <>
+      <div className="mt-10">
+        <div
+          onClick={() => playSong()}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          className=" flex h-28 items-center cursor-pointer space-x-4 transition-all duration-100 delay-100 border-b border-gray-800 hover:bg-gray-800"
+        >
+          <div className="flex-shrink-0 p-2">
+            {isHovered ? (
+              <BiPlay className="w-6 h-6 text-lime-400" />
+            ) : (
+              <div className="text-base">{order + 1}</div>
+            )}
+          </div>
           <img
-            className="h-10 w-12 mr-[16px]"
-            src={track.album.images[0]?.url}
-            alt={track.album.name}
+            className="w-10 h-10 flex-shrink-0"
+            src={track.album?.images[0]?.url}
           />
-          <div>
-            <p className="w-36 lg:w-64 text-base hover:underline truncate text-white">
-              {track.name}
-            </p>
-            <p>{track.artist}</p>
+          <div className="p-3 w-full">{track.name}</div>
+          <div className="p-3 w-full">{track.artist}</div>
+          <div className="p-3 w-full">{track.album?.name}</div>
+          <div className="p-3 w-12 flex-shrink-0 text-right">
+            {millisToMinutesAndSeconds(track.duration_ms)}
           </div>
         </div>
-        <div className="flex items-center text-sm justify-between ml-auto md:ml-0">
-          <p className="w-55 hidden md:inline hover:underline hover:text-white">
-            {track.album.name}
-          </p>
-          <p className="ml-10 text-gray-400">
-            {millisToMinutesAndSeconds(track.duration_ms)}
-          </p>
-        </div>
-        <div className="flex items-center text-white text-sm justify-between ml-auto">
-          {track.album.release_date}
-        </div>
       </div>
-    );
-  }
+    </>
+  );
 };
 
 export default Song;

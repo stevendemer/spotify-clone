@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { ArrowLeftIcon } from "@heroicons/react/solid";
 import useSpotify from "../../hooks/useSpotify";
-import { random } from "lodash";
 import Card from "../../components/card";
 
 const Category = () => {
@@ -41,12 +40,10 @@ const Category = () => {
   return (
     <div className="h-screen w-full overflow-y-scroll flex-grow relative ">
       <section className="space-x-7 text-white p-8 ">
-        <div className="text-5xl py-2 mx-auto container capitalize font-bold">
-          {router.query.pid}
-        </div>
+        <div className="text-5xl py-2 mx-auto container capitalize font-bold"></div>
         <div className="grid grid-cols-7 gap-6 p-10 last:mb-36">
           {playlists.map((playlist) => (
-            <Card isPlaylist category={playlist} key={playlist.id} />
+            <Card isLiked isPlaylist category={playlist} key={playlist.id} />
           ))}
         </div>
       </section>

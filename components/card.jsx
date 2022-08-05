@@ -30,4 +30,5 @@ Card.propTypes = {
   category: PropTypes.object.isRequired,
   isPlaylist: PropTypes.bool,
   title: PropTypes.string,
+  isLiked: PropTypes.bool,
 };
