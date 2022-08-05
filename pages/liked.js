@@ -56,10 +56,10 @@ export default function LikedPage() {
           <div className="flex items-center space-x-2">
             <img
               className="w-8 h-8  rounded-full"
-              src={session.user.image}
+              src={session?.user.image}
               alt=""
             />
-            <div className="text-xs font-bold">{session.user.name}</div>
+            <div className="text-xs font-bold">{session?.user.name}</div>
             <div className="text-xs">50 songs</div>
           </div>
         </div>
