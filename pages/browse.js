@@ -33,7 +33,7 @@ const Browse = () => {
     <div className="w-full text-white h-screen overflow-y-scroll scrollbar-thumb-white ">
       {/* Header with search bar */}
       <div className="sticky z-30 top-0 h-16 w-full bg-black">
-        <div className="flex whitespace-nowrap mt-4 items-center space-x-8 ">
+        <div className="flex pl-4 whitespace-nowrap mt-4 items-center space-x-8 ">
           <ChevronLeftIcon
             onClick={() => router.push("/")}
             className="w-6 h-6 text-white cursor-pointer"

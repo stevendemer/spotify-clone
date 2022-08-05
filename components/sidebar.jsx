@@ -37,7 +37,7 @@ const Sidebar = () => {
   }, [spotifyApi]);
 
   return (
-    <div className="text-xs pb-28  overflow-y-scroll scrollbar-track-black scrollbar-thumb-zinc-600 scrollbar-thin bg-black outline-none  h-screen w-[232px] md:text-[0.875rem] lg:text-lg text-gray-500">
+    <div className="text-xs pb-28 overflow-y-scroll scrollbar-track-black scrollbar-thumb-zinc-600 scrollbar-thin bg-black outline-none  h-screen w-72 md:text-[0.875rem] lg:text-lg text-gray-500">
       <div className="space-y-4">
         {/* Logo  */}
         <div className="flex items-center pb-3 justify-start  cursor-pointer">
@@ -52,23 +52,26 @@ const Sidebar = () => {
         </div>
         {/* Links */}
         <div className="space-y-4 ml-2 text-sm md:text-xl focus:outline-none focus:ring-none">
-          <button className="flex  items-center hover:text-white focus:text-white space-x-2">
+          <button
+            onClick={() => router.push("/")}
+            className="flex  items-center hover:text-white focus:text-white space-x-2"
+          >
             <HomeIcon className="h-[24px] w-[24px]" />
-            <Link href="/">
-              <p>Home</p>
-            </Link>
+            <p>Home</p>
           </button>
-          <button className="flex items-center hover:text-white focus:text-white space-x-2">
+          <button
+            onClick={() => router.push("/browse")}
+            className="flex items-center hover:text-white focus:text-white space-x-2"
+          >
             <SearchIcon className="h-[24px] w-[24px]" />
-            <Link href="/browse">
-              <p>Search</p>
-            </Link>
+            <p>Search</p>
           </button>
-          <button className="flex items-center hover:text-white focus:text-white space-x-2">
+          <button
+            onClick={() => router.push("/library")}
+            className="flex items-center hover:text-white focus:text-white space-x-2"
+          >
             <LibraryIcon className="h-[24px] w-[24px]" />
-            <Link href="/library">
-              <p>Library</p>
-            </Link>
+            <p>Library</p>
           </button>
         </div>
         {/* Second links */}
@@ -77,7 +80,10 @@ const Sidebar = () => {
             <PlusCircleIcon className="h-[24px] w-[24px]" />
             <p>Create a playlist</p>
           </button>
-          <button className="flex items-center space-x-2 hover:text-white focus:text-white">
+          <button
+            onClick={() => router.push("/liked")}
+            className="flex items-center space-x-2 hover:text-white focus:text-white"
+          >
             <HeartIcon className="h-[24px] w-[24px]" />
             <p>Liked songs</p>
           </button>
@@ -94,7 +100,7 @@ const Sidebar = () => {
               key={playlist.id}
               onClick={() => {
                 setPlaylistId(playlist.id);
-                router.replace("/");
+                router.push("/", undefined, { shallow: true });
               }}
               className="cursor-pointer hover:text-white px-[8px]"
             >

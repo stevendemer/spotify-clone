@@ -10,7 +10,6 @@ import { shuffle } from "lodash";
 import useSpotify from "../hooks/useSpotify";
 import { playlistIdState, playlistState } from "../atoms/playlist-atom";
 import Songs from "./songs";
-import Banner from "./banner";
 
 const bgColors = [
   "from-yellow-500",
@@ -44,13 +43,6 @@ const Menu = () => {
         console.log(`Error getting the playlist ${error}`);
       });
   }, [spotifyApi, playlistId]);
-
-  // useEffect(() => {
-  //   spotifyApi
-  //     .getMyDevices()
-  //     .then((data) => console.log(data.body.devices[0].name))
-  //     .catch((err) => console.log("Something went wrong ", err));
-  // }, []);
 
   return (
     <div className="h-screen relative w-full flex-grow overflow-y-scroll scrollbar scrollbar-hide text-white bg-black text-3xl">
@@ -92,7 +84,7 @@ const Menu = () => {
           </h2>
         </div>
       </section>
-      <Songs />
+      <Songs playlist={playlist} />
     </div>
   );
 };
