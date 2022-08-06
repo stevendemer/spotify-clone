@@ -11,6 +11,7 @@ import { shuffle } from "lodash";
 import useSpotify from "../hooks/useSpotify";
 import { playlistIdState, playlistState } from "../atoms/playlist-atom";
 import Song from "../components/song";
+import Banner from "../components/banner";
 
 const bgColors = [
   "from-yellow-500",
@@ -47,7 +48,8 @@ const Menu = () => {
 
   return (
     <div className="relative h-screen w-full flex-grow overflow-y-scroll scrollbar-none bg-black text-white ">
-      <section
+      <Banner />
+      {/* <section
         className={`flex items-end space-x-7 bg-gradient-to-b to-black ${colorMode} h-80 px-10 py-20 text-white`}
       >
         <img
@@ -70,7 +72,7 @@ const Menu = () => {
             <div className="text-xs">50 songs</div>
           </div>
         </div>
-      </section>
+      </section> */}
       <div className="text-gray-400 gap-x-10 space-x-60 grid grid-rows-2 grid-cols-4">
         <div className="text-sm pl-24"># TITLE</div>
         <div className="text-sm">ALBUM</div>
@@ -88,52 +90,6 @@ const Menu = () => {
       </div>
     </div>
   );
-
-  // return (
-  //   <div className="min-h-screen relative w-full flex-grow overflow-y-scroll scrollbar scrollbar-hide text-white bg-black text-3xl">
-  //     <header className="absolute top-0 left-0 right-0 ">
-  //       <div className="flex items-center justify-between gap-4 relative  py-6 h-[32px]  transition-colors duration-300 space-x-2 rounded-full">
-  //         <div className="flex fixed items-center justify-start px-4 space-x-6  text-white ">
-  //           <ChevronLeftIcon className="cursor-pointer w-6 h-6 rounded-full  " />
-  //           <ChevronRightIcon className="cursor-pointer w-6 h-6 rounded-full " />
-  //         </div>
-  //         {/* User image and logout button */}
-  //         <div
-  //           onClick={signOut}
-  //           className="cursor-pointer fixed right-4 top-4 flex items-center space-x-2 transition-all delay-100 hover:text-white text-zinc-300  bg-black rounded-full"
-  //         >
-  //           <img
-  //             alt=""
-  //             src={session?.user.image}
-  //             className="rounded-full w-8 h-8  "
-  //           />
-  //           <div className="text-sm font-semibold mr-4">
-  //             {session?.user.name}
-  //           </div>
-  //           <ChevronDownIcon className=" w-6 h-6  pr-2" />
-  //         </div>
-  //       </div>
-  //     </header>
-  //     <section
-  //       className={`flex items-end space-x-7 bg-gradient-to-b to-black ${colorMode} h-80 text-white p-8`}
-  //     >
-  //       <img
-  //         className="h-48 w-48 shadow-2xl"
-  //         src={playlist?.images[0]?.url}
-  //         alt="playlist covers"
-  //       />
-  //       <div>
-  //         <p className="text-xs font-bold">Playlist</p>
-  //         <h2 className=" font-bold text-xl md:text-3xl xl:text-8xl">
-  //           {playlist?.name}
-  //         </h2>
-  //       </div>
-  //     </section>
-  //     {playlist?.tracks?.items.map((track, idx) => {
-  //       return <Song key={track.track.id} track={track.track} order={idx} />;
-  //     })}
-  //   </div>
-  // );
 };
 
 export default Menu;

@@ -6,9 +6,8 @@ import {
   currentTrackState,
   isPlayingState,
 } from "../atoms/song-atom";
-import millisToMinutesAndSeconds from "../lib/time";
+import { millisToMinutes } from "../lib/time";
 import { BiPlay } from "react-icons/bi";
-import SpotifyApi from "../lib/spotify";
 import useSpotify from "../hooks/useSpotify";
 
 /*
@@ -96,7 +95,7 @@ const Song = ({ track, order }) => {
           <div className="p-3 w-full">{track.artist}</div>
           <div className="p-3 w-full">{track.album?.name}</div>
           <div className="p-3 w-12 flex-shrink-0 text-right">
-            {millisToMinutesAndSeconds(track.duration_ms)}
+            {millisToMinutes(track.duration_ms)}
           </div>
         </div>
       </div>
