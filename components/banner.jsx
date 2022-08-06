@@ -98,7 +98,9 @@ export default function Banner() {
         <div className="py-4 flex flex-col flex-shrink">
           <p className="text-lg font-bold">Playlist</p>
           <div className="pb-10 font-bold text-xl md:text-3xl xl:text-8xl">
-            {playlist?.name}
+            {`${
+              router.pathname.includes("liked") ? "Liked Songs" : playlist?.name
+            }`}
           </div>
           <div className="flex items-center space-x-2">
             <img
