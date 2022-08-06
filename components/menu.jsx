@@ -47,7 +47,7 @@ const Menu = () => {
   }, [spotifyApi, playlistId]);
 
   return (
-    <div className="relative h-screen w-full flex-grow overflow-y-scroll scrollbar-none bg-black text-white ">
+    <div className="relative h-screen w-full flex-grow overflow-y-scroll scrollbar-thumb-white bg-black text-white ">
       <Banner />
       {/* <section
         className={`flex items-end space-x-7 bg-gradient-to-b to-black ${colorMode} h-80 px-10 py-20 text-white`}

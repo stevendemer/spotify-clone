@@ -3,7 +3,7 @@ import Player from "../components/player";
 
 export default function Layout({ hasSidebar, children, ...restProps }) {
   return (
-    <div className=" overflow-scroll scrollbar-none min-h-screen bg-black h-screen">
+    <div className=" overflow-hidden min-h-screen bg-black h-screen">
       <main className="flex">
         {hasSidebar && <Sidebar />}
         {children}

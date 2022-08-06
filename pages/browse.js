@@ -32,7 +32,7 @@ const Browse = () => {
   return (
     <div className="w-full text-white h-screen overflow-y-scroll scrollbar-thumb-white ">
       {/* Header with search bar */}
-      <div className="sticky z-30 top-0 h-16 w-full bg-black">
+      <div className="relative px-6 h-16 w-full bg-black">
         <div className="flex pl-4 whitespace-nowrap mt-4 items-center space-x-8 ">
           <ChevronLeftIcon
             onClick={() => router.push("/")}
@@ -71,7 +71,7 @@ const Browse = () => {
           </form>
           <div
             onClick={signOut}
-            className="cursor-pointer absolute right-0 flex items-center space-x-2 transition-all delay-100 hover:text-white text-zinc-300  bg-black rounded-full"
+            className="cursor-pointer absolute  right-0 flex items-center space-x-2 transition-all delay-100 hover:text-white text-zinc-300  bg-black rounded-full"
           >
             <img
               alt=""

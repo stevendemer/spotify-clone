@@ -54,28 +54,30 @@ export default function Banner() {
   return (
     <div className="w-full h-[30vh] min-h-[340px] max-h-[500px] relative flex pb-6">
       <div className="absolute top-0">
-        <div className=" pl-4   whitespace-nowrap mt-4 space-x-8">
-          <div className=" rounded-full relative  space-x-6 cursor-pointer  ">
-            <div className="pl-10  flex  items-center space-x-6  text-white font-semibold">
-              <ChevronLeftIcon
-                onClick={() => router.back()}
-                className="w-6 h-6 text-white  rounded-full  bg-opacity-30  bg-black cursor-pointer"
-              />
-              <ChevronRightIcon
-                onClick={() => router.back()}
-                className="w-6 h-6 bg-opacity-30 bg-black rounded-full text-white cursor-pointer"
-              />
-              <div
-                onClick={() => signOut()}
-                className="bg-black relative px-2  right-0 flex items-center  rounded-full bg-opacity-60 hover:bg-opacity-40 transition-all delay-100"
-              >
-                <img
-                  src={session?.user.image}
-                  alt=""
-                  className="w-8 h-8 rounded-full"
+        <div className=" pl-4  whitespace-nowrap mt-4 space-x-8">
+          <div className="sticky  top-0 z-30 ">
+            <div className=" rounded-full relative  space-x-6 cursor-pointer  ">
+              <div className="pl-10 flex items-center space-x-6  text-white font-semibold">
+                <ChevronLeftIcon
+                  onClick={() => router.back()}
+                  className="w-6 h-6 text-white  rounded-full  bg-opacity-30  bg-black cursor-pointer"
                 />
-                <div className="px-2">{session?.user.name}</div>
-                <ChevronDownIcon className="w-4 h-4" />
+                <ChevronRightIcon
+                  onClick={() => router.back()}
+                  className="w-6 h-6 bg-opacity-30 bg-black rounded-full text-white cursor-pointer"
+                />
+                <div
+                  onClick={() => signOut()}
+                  className="bg-black relative px-2  right-0 flex items-center  rounded-full bg-opacity-60 hover:bg-opacity-40 transition-all delay-100"
+                >
+                  <img
+                    src={session?.user.image}
+                    alt=""
+                    className="w-8 h-8 rounded-full"
+                  />
+                  <div className="px-2">{session?.user.name}</div>
+                  <ChevronDownIcon className="w-4 h-4" />
+                </div>
               </div>
             </div>
           </div>
