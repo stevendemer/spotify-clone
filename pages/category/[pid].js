@@ -42,7 +42,7 @@ const Category = () => {
       <section className="space-x-7 text-white p-8 ">
         <div className="text-5xl py-2 mx-auto container capitalize font-bold"></div>
         <div className="grid grid-cols-7 gap-6 p-10 last:mb-36">
-          {playlists.map((playlist) => (
+          {playlists?.map((playlist) => (
             <Card isLiked isPlaylist category={playlist} key={playlist.id} />
           ))}
         </div>
