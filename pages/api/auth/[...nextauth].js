@@ -9,7 +9,7 @@ async function refreshAccessToken(token) {
 
     const { body: refreshedToken } = await SpotifyApi.refreshAccessToken();
 
-    console.log("Refreshed token is " + refreshedToken.access_token);
+    console.log("Refreshed token is ", refreshedToken);
 
     return {
       ...token,
@@ -31,8 +31,8 @@ export default NextAuth({
   // can configure more than one
   providers: [
     SpotifyProvider({
-      clientId: process.env.SPOTIFY_CLIENT_ID,
-      clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+      clientId: process.env.NEXT_PUBLIC_CLIENT_ID,
+      clientSecret: process.env.NEXT_PUBLIC_CLIENT_SECRET,
       authorization: LOGIN_URL,
     }),
   ],
