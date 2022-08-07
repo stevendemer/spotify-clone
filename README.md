@@ -23,3 +23,4 @@ A NodeJS Spotify API wrapper was also used so i did not have to create a new bac
 
 ![Screenshot 2022-08-06 at 16-28-29 Spotify 2 0](https://user-images.githubusercontent.com/47676542/183284819-7a037765-d756-4a9b-9156-e2e17ccef6ba.png)
 
+![Screenshot 2022-08-06 at 16-26-21 Spotify 2 0](https://user-images.githubusercontent.com/47676542/183284881-a8a68f05-7753-4213-bc4d-a80cfc6e7f14.png)
