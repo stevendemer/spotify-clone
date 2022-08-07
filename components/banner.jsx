@@ -119,10 +119,3 @@ export default function Banner() {
     </div>
   );
 }
-
-Banner.propTypes = {
-  title: PropTypes.string.isRequired,
-  subtitle: PropTypes.string,
-  artist: PropTypes.string,
-  total_duration: PropTypes.number,
-};

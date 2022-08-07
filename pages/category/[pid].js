@@ -21,21 +21,21 @@ const Category = () => {
           limit: 40,
         })
         .then((data) => {
-          console.log("Fetched from the spotify api", data.body);
           setPlaylists(data.body?.playlists?.items);
         })
         .catch((err) => console.log(err));
     }
   }, [router.isReady, spotifyApi]);
 
-  useEffect(() => {
-    spotifyApi
-      .getPlaylist(playlists[5]?.id)
-      .then((data) => {
-        console.log(data.body?.items);
-      })
-      .catch((err) => console.log(err));
-  }, [spotifyApi, playlists]);
+  // useEffect(() => {
+  //   spotifyApi
+  //     .getPlaylist(playlists[5]?.id)
+  //     .then((data) => {
+  //       console.log(data.body?.items);
+
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, [spotifyApi, playlists]);
 
   return (
     <div className="h-screen w-full overflow-y-scroll flex-grow relative ">

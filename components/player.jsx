@@ -91,17 +91,6 @@ export default function Player() {
     []
   );
 
-  // useEffect(() => {
-  //   spotifyApi
-  //     .getMyDevices()
-  //     .then((data) => {
-  //       let device = data.body?.devices[0];
-  //       device.is_active = true;
-  //       setActiveDevice(device.id);
-  //     })
-  //     .catch((err) => console.log("Error getting device id", err));
-  // }, [spotifyApi]);
-
   useEffect(() => {
     if (volume > 0 && volume < 100) {
       debouncedAdjustVolume(volume);

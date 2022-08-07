@@ -11,8 +11,6 @@ export default function Home() {
 
   const userId = useRecoilValue(userStateId);
 
-  console.log(`The user id is ${userId}`);
-
   // the user is not logged in
 
   useEffect(() => {
