@@ -4,9 +4,7 @@ import SpotifyApi, { LOGIN_URL } from "../../../lib/spotify";
 
 async function refreshAccessToken(token) {
   try {
-    SpotifyApi.setAccessToken(
-      "BQB4-d1KqGRdPXeMbRFwKGapYBUE-PhDCFeq7kSV8zwJd2-hzwpp_3Vwa0l0ecXuUcDlkwUM9lT_e6uAqs-BgqIeEtvauWTRtb7uBhlvsnVA_f1KjqPNuw9xdbZat2H583s5jue0BpVBsniB9htJAX5iB8H8wU09EkDNhHqcikF3hDZ_mFFsnNP1oH0co-ttXr7iNoOCC09inUeGrYhhI6-GMoeMHQ"
-    );
+    SpotifyApi.setAccessToken(token.accessToken);
     SpotifyApi.setRefreshToken(token.refreshToken);
 
     const { body: refreshedToken } = await SpotifyApi.refreshAccessToken();
