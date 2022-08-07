@@ -18,7 +18,7 @@ mainly due to the API (limits on songs lists, songs don't update when playing fr
 I used NextAuth for the authentication with JWT to keep track of sessions.
 A NodeJS Spotify API wrapper was also used so i did not have to create a new backend on my own just for the user authentication.
 
-* Spotify premium is need for the player to work.
+* Spotify premium is needed for the player to work.
 
 
 ![Screenshot 2022-08-06 at 16-35-54 Spotify 2 0](https://user-images.githubusercontent.com/47676542/183284808-87b91009-9eb7-4ed4-b921-29c63ef9e37f.png)
